@@ -1,0 +1,34 @@
+//https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1#
+
+class Solution{
+public:
+    int dp[1010];
+    int func(int max_wt,vector<int > &weight, vector<int > &values)
+    {
+        if(dp[max_wt]!=-1)
+        return dp[max_wt];
+        else{
+        
+        int ans=0;
+        for(int i=0;i<weight.size();i++)
+        {
+            if((max_wt-weight[i]) >=0)
+            {
+                ans=max(ans,(func(max_wt-weight[i],weight,values)+values[i]));
+            }
+        }
+        return dp[max_wt]=ans;
+        }
+    }
+    
+    
+    
+    int knapSack(int N, int W, int val[], int wt[])
+    {
+        // code here
+        memset(dp, -1, sizeof(dp));
+        vector<int> wts(wt,wt+N);
+        vector<int> vals(val,val+N);
+        return func(W, wts, vals);
+    }
+};
